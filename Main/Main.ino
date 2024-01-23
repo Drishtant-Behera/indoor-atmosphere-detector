@@ -33,7 +33,37 @@ void setup() {
 
 void loop() {
 
-  
+  int sensorValue = analogRead(sensorPin);
+  // change the bellow variable to whatever fits your situation
+  const float dangerThreshold = 0.2;
+
+
+  float gas_conc = sensorValue * (5.0 / 1024.0); 
+
+  // if the gas concentration is more or the same as the danger threshold then alert!
+  if (gas_conc >= dangerThreshold) {
+    Serial.println("Danger!");
+    tone(buzzerPin, 440);
+    Serial.print("Gas Conc: ");
+    Serial.print(gas_conc);
+    
+  } 
+  else {
+
+    Serial.print("Gas Conc: ");
+    Serial.println(gas_conc);
+    
+    noTone(buzzerPin);
+  }
+
+  String vString =  String(gas_conc, 3);// using a float and the 
+  display.clearDisplay();
+  robojaxText("Gas Conc:          ", 4, 3, 0.5, false);
+  robojaxText(vString, 72, 3, 1, false);
+  display.drawLine(1, 37, 100, 37, WHITE);
+  display.drawRect(1, 1, 126,31, WHITE);
+  display.display();
+  delay(100);
 
   
 }
