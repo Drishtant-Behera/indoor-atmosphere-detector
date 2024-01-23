@@ -55,6 +55,7 @@ void loop() {
     
     noTone(buzzerPin);
   }
+  
   // setting up display
   String vString =  String(gas_conc, 3);
   display.clearDisplay();
